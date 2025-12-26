@@ -1,0 +1,24 @@
+- name: Execute roles
+  hosts: localhost
+  collections:
+    - arch.config
+  tasks:
+    - name: --ask-become-pass
+      ansible.builtin.pause:
+        prompt: "Enter root password:"
+        echo: false
+      register: password
+
+    - name: Include roles
+      ansible.builtin.include_role:
+        name: "{{ role }}"
+      loop:
+        - hyprland
+        - theming
+        - apps
+        - devtools
+      loop_control:
+        loop_var: role
+      vars:
+        ansible_become_password: "{{ password.user_input }}"
+

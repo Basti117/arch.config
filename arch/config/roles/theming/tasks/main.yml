@@ -1,0 +1,29 @@
+- name: Ensure GTK config directory exists
+  ansible.builtin.file:
+    path: "{{ dir }}"
+    state: directory
+    mode: "0755"
+  become: true
+  become_user: "{{ ansible_facts.user_id }}"
+  loop:
+    - "{{ theming.font.dir }}"
+    - "{{ theming.cursor.dir }}"
+  loop_control:
+    loop_var: dir
+
+- name: Install '{{ theming.cursor.name }}' cursor
+  become: true
+  ansible.builtin.unarchive:
+    src: "{{ theming.cursor.url }}"
+    dest: "{{ theming.cursor.dir }}"
+    remote_src: true
+
+- name: Install '{{ theming.font.name }}' font
+  ansible.builtin.unarchive:
+    src: "{{ theming.font.url }}"
+    dest: "{{ theming.font.dir }}"
+    remote_src: true
+
+- name: Rebuild font cache
+  ansible.builtin.command:
+    cmd: "fc-cache -fv"

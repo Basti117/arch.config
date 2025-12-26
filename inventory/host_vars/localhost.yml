@@ -1,0 +1,73 @@
+base:
+  services:
+    - name: NetworkManager.service
+      scope: system
+    - name: bluetooth.service
+      scope: system
+    - name: systemd-timesyncd.service
+      scope: system
+    - name: fstrim.timer
+      scope: system
+    - name: paccache.timer
+      scope: system
+hyprland:
+  packages:
+    - name: hyprland
+    - name: hyprcursor
+    - name: hypridle
+    - name: hyprlock
+    - name: hyprpaper
+  services:
+    # This should be anabled on default
+    - name: getty@tty1.service
+      scope: system
+    # Rescue tty session
+    - name: getty@tty2.service
+      scope: system
+apps:
+  packages:
+    - name: fastfetch
+    - name: firefox
+    - name: git
+    - name: imv
+    - name: kitty
+    - name: neovim
+      # - name: plymouth
+    - name: pipx
+    - name: python
+    - name: ripgrep
+    - name: rofi
+    - name: rsync
+    - name: starship
+    - name: waybar
+    - name: wl-clipboard
+    - name: wofi
+    - name: yay
+  aur: []
+  services:
+    - name: pipewire.service
+    - name: pipewire-pulse.service
+    - name: wireplumber.service
+    - name: xdg-desktop-portal.service
+    - name: xdg-desktop-portal-hyprland.service
+    - name: polkit-kde-agent.service
+    - name: mako.service
+devtools:
+  python:
+    packages:
+      - name: ansible
+        install_deps: true
+      - name: uv
+  zig:
+    zvm: true
+dotfiles:
+  config_dir: "{{ ansible_facts.user_dir }}/.config"
+theming:
+  font:
+    name: JetBrainsMono Nerd Font Mono
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip
+    dir: "{{ ansible_facts.user_dir }}/.local/share/fonts"
+  cursor:
+    name: catppuccin-mocha-blue-cursors
+    url:  https://github.com/catppuccin/cursors/releases/download/v2.0.0/catppuccin-mocha-blue-cursors.zip
+    dir: "{{ ansible_facts.user_dir }}/.local/share/icons"

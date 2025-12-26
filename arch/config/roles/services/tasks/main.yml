@@ -1,0 +1,22 @@
+- name: Ensure user services directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts.user_dir }}/.config/systemd/user"
+    state: directory
+    mode: "0755"
+  become: true
+  become_user: "{{ ansible_facts.user_id }}"
+
+- name: Enable services
+  ansible.builtin.systemd_service:
+    name: "{{ service.name }}"
+    enabled: "{{ service.enabled | default(true) }}"
+    state: "{{ service.state | default('started') }}"
+    scope: "{{ service.scope | default('user') }}"
+  loop: "{{ services }}"
+  loop_control:
+    loop_var: service
+  become: true
+  become_user: "{{ ansible_facts.user_id }}" 
+  when:
+    - services is defined
+    - services | length > 0

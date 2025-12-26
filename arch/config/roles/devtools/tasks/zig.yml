@@ -1,0 +1,19 @@
+- name: Install zvm
+  ansible.builtin.shell: |
+    curl https://raw.githubusercontent.com/tristanisham/zvm/master/install.sh | bash
+  args:
+    executable: /bin/bash
+
+- name: Source the zvm binary path
+  ansible.builtin.shell: source ${HOME}/.bashrc
+  args:
+    executable: /bin/bash
+
+- name: Install nightly release of zig and zls
+  ansible.builtin.command:
+    cmd: zvm install --zls master
+
+- name: Use zig nightly release
+  ansible.builtin.command:
+    cmd: zvm use master
+

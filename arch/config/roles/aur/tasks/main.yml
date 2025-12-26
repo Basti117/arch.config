@@ -1,0 +1,11 @@
+- name: Install AUR packages
+  become: true
+  become_user: "{{ ansible_facts.user_id }}"
+  ansible.builtin.command:
+    cmd: "yay -Sy --noconfirm --needed {{ package.name }}"
+  loop: "{{ aur_packages }}"
+  loop_control:
+    loop_var: package
+  when:
+    - aur_packages is defined
+    - aur_packages | length > 0

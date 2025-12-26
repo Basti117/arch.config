@@ -1,0 +1,7 @@
+- name: Configure bash dotfiles
+  ansible.builtin.include_role:
+    name: dotfiles
+  vars:
+    src_dir: "{{ role_path }}/files"
+    dest_dir: "{{ ansible_facts.user_dir }}"
+

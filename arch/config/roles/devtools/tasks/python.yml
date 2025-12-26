@@ -1,0 +1,11 @@
+- name: Install python packages
+  community.general.pipx:
+    name: "{{ package.name }}"
+    state: "{{ package.state | default('latest') }}"
+    install_deps: "{{ package.install_deps | default(false) }}"
+  loop: "{{ devtools.python.packages }}"
+  loop_control:
+    loop_var: package
+  when:
+    - devtools.python.packages is defined
+    - devtools.python.packages | length > 0

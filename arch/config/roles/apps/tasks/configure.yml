@@ -1,0 +1,6 @@
+- name: Configure apps
+  ansible.builtin.include_role:
+    name: dotfiles
+  vars:
+    src_dir: "{{ ansible_parent_role_paths[0] }}/files/.config"
+    dest_dir: "{{ dotfiles.config_dir }}"

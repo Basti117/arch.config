@@ -1,0 +1,36 @@
+- name: Install packages
+  ansible.builtin.include_role:
+    name: packages
+  vars:
+    pacman_packages: "{{ hyprland.apps }}"
+
+- name: Setup config files
+  ansible.builtin.include_role:
+    name: dotfiles
+  vars:
+    src_dir: "{{ ansible_parent_role_paths[0] }}/files/.config"
+    dest_dir: "{{ dotfiles.config_dir }}"
+ 
+- name: Configure systemd services
+  ansible.builtin.include_role:
+    name: services
+  vars:
+    services: "{{ hyprland.services }}"
+
+- name: Create systemd override directory for getty@tty1
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/system/getty@tty1.service.d
+    state: directory
+    mode: "0755"
+
+- name: Enable auto-login on tty1
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/getty@tty1.service.d/override.conf
+    mode: "0644"
+    content: |
+      [Service]
+      ExecStart=
+      ExecStart=-/usr/bin/agetty --autologin {{ ansible_facts['user_id'] }} --noclear %I $TERM
+

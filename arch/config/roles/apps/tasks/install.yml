@@ -1,0 +1,11 @@
+- name: Install official arch apps
+  ansible.builtin.include_role:
+    name: packages
+  vars:
+    packages: "{{ apps.packages }}"
+
+- name: Install AUR apps
+  ansible.builtin.include_role:
+    name: aur
+  vars:
+    aur_packages: "{{ apps.aur }}"

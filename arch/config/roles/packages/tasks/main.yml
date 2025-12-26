@@ -1,0 +1,10 @@
+- name: Install official arch packages
+  community.general.pacman:
+    name: "{{ package.name }}"
+    state: "{{ package.state | default('present') }}"
+  loop: "{{ packages }}"
+  loop_control:
+    loop_var: package
+  when:
+    - packages is defined
+    - packages | length > 0

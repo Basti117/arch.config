@@ -1,0 +1,6 @@
+- name: Enable base system services
+  ansible.builtin.include_role:
+    name: services
+  vars:
+    services: "{{ base.services }}"
+
