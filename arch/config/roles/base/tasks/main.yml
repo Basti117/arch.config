@@ -1,3 +1,9 @@
+- name: Install base packages
+  ansible.builtin.include_role:
+    name: packages
+  vars:
+    packages: "{{ base.packages }}"
+
 - name: Enable base system services
   ansible.builtin.include_role:
     name: services
