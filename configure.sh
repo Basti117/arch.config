@@ -1,5 +1,5 @@
 echo "Installing dependencies..."
-sudo pacman -S python pipx git
+sudo pacman -S python python-pipx git
 pipx install --include-deps ansible
 
 setup_dir="${HOME}/.setup/arch.config"

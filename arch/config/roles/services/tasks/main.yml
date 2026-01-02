@@ -15,8 +15,7 @@
   loop: "{{ services }}"
   loop_control:
     loop_var: service
-  become: true
-  become_user: "{{ ansible_facts.user_id }}" 
+  become: "{{ service.scope | default('user') != 'user' }}"
   when:
     - services is defined
     - services | length > 0

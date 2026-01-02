@@ -1,4 +1,6 @@
 base:
+  packages:
+    - name: pacman-contrib
   services:
     - name: NetworkManager.service
       scope: system
@@ -24,6 +26,8 @@ hyprland:
     # Rescue tty session
     - name: getty@tty2.service
       scope: system
+    - name: hypridle.service
+    - name: hyprpaper.service
 apps:
   packages:
     - name: fastfetch
@@ -33,8 +37,8 @@ apps:
     - name: kitty
     - name: neovim
       # - name: plymouth
-    - name: pipx
     - name: python
+    - name: python-pipx
     - name: ripgrep
     - name: rofi
     - name: rsync
