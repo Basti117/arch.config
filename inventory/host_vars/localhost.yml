@@ -1,5 +1,8 @@
 base:
   packages:
+    - name: blueman
+    - name: networkmanager
+    - name: networkmanager-dmenu
     - name: pacman-contrib
   services:
     - name: NetworkManager.service
