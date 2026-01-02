@@ -2,7 +2,7 @@
   ansible.builtin.include_role:
     name: packages
   vars:
-    pacman_packages: "{{ hyprland.apps }}"
+    packages: "{{ hyprland.packages }}"
 
 - name: Setup config files
   ansible.builtin.include_role:
