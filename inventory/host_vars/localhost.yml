@@ -43,7 +43,7 @@ base:
   ssh:
     dir: "{{ ansible_facts.user_dir }}/.ssh"
     generate_keys:
-      - filename: github
+      - filename: id_ed25519
         regenerate: partial_idempotence
         type: ed25519
 hyprland:
