@@ -1,11 +1,19 @@
+- name: Install python packages available with pacman
+  ansible.builtin.include_role:
+    name: packages
+  vars:
+    packages: "{{ devtools.python.packages }}"
+
 - name: Install python packages
   community.general.pipx:
     name: "{{ package.name }}"
     state: "{{ package.state | default('latest') }}"
     install_deps: "{{ package.install_deps | default(false) }}"
-  loop: "{{ devtools.python.packages }}"
+  loop: "{{ devtools.python.pipx_packages }}"
   loop_control:
     loop_var: package
+  vars:
+    ansible_python_interpreter: /usr/bin/python
   when:
-    - devtools.python.packages is defined
-    - devtools.python.packages | length > 0
+    - devtools.python.pipx_packages is defined
+    - devtools.python.pipx_packages | length > 0

@@ -1,3 +1,9 @@
+- name: Update pacman cache and upgrade
+  become: true
+  community.general.pacman:
+    update_cache: true
+    upgrade: true
+
 - name: Install base packages
   ansible.builtin.include_role:
     name: packages
@@ -10,3 +16,10 @@
   vars:
     services: "{{ base.services }}"
 
+- ansible.builtin.import_tasks: dual_boot.yml
+  when:
+    - base.dual_boot is defined
+
+- ansible.builtin.import_tasks: ssh.yml
+  when:
+    - base.ssh is defined

@@ -1,0 +1,57 @@
+- name: Install packages needed for yay
+  ansible.builtin.include_role:
+    name: packages
+  vars:
+    packages: "{{ aur.yay.packages }}"
+
+- name: Create aur_builder user
+  become: true
+  ansible.builtin.user:
+    name: "{{ aur.user }}"
+    create_home: true
+    groups: wheel
+
+- name: "Allow {{ aur.user }} to run sudo pacman without password"
+  become: true
+  ansible.builtin.lineinfile:
+    path: "/etc/sudoers.d/11-install-{{ aur.user }}"
+    line: "{{ aur.user }} ALL=(ALL) NOPASSWD: /user/bin/pacman"
+    create: true
+    mode: "0644"
+    validate: "visudo -cf %s"
+
+- name: Enable multilib repository for pacman
+  become: true
+  become_user: "{{ aur.user }}"
+  ansible.builtin.blockinfile:
+    path: /etc/pacman.conf
+    block: |
+      [multilib]
+      Include = /etc/pacman.d/mirrorlist
+
+- name: Install aur helper
+  become_user: "{{ aur.user }}"
+  kewlfft.aur.aur:
+    name: "{{ aur.helper }}"
+    state: present
+    use: auto
+
+# - name: Create cache dir for yay repository
+#   ansible.builtin.file:
+#     path: "{{ aur.yay.dest }}"
+#     state: directory
+#     mode: "0755"
+# 
+# - name: Clone yay repository
+#   ansible.builtin.git:
+#     repo: "{{ aur.yay.source }}"
+#     dest: "{{ aur.yay.dest }}"
+# 
+# - name: Build yay from source
+#   ansible.builtin.command:
+#     argv:
+#       - makepkg
+#       - -si
+#       - --noconfirm
+#   args:
+#     chdir: "{{ aur.yay.dest }}"

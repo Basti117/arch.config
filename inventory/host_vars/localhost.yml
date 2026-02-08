@@ -1,9 +1,32 @@
+ansible_connection: local
+ansible_python_interpreter: "{{ ansible_playbook_python }}"
 base:
+  dual_boot:
+    primary:
+      name: Linux
+      mount_point: /boot/EFI
+      bootloader:
+        entry_dir: /boot/loader/entries
+    secondary:
+      name: Windows
+      mount_point: /mnt/windowsEFI
+      esp: /dev/nvme0n1p1
+      fstype: vfat
+      sub_path: EFI/Microsoft
+      bootloader:
+        file: /boot/EFI/Microsoft/Boot/bootmgfw.efi
   packages:
     - name: blueman
+    - name: jq
     - name: networkmanager
     - name: networkmanager-dmenu
     - name: pacman-contrib
+    - name: unzip
+    - name: nvidia-open
+    - name: nvidia-utils
+    # - name: lib32-nvidia-utils
+    - name: nvidia-settings
+    - name: openssh
   services:
     - name: NetworkManager.service
       scope: system
@@ -15,13 +38,23 @@ base:
       scope: system
     - name: paccache.timer
       scope: system
+    - name: sshd
+      scope: system
+  ssh:
+    dir: "{{ ansible_facts.user_dir }}/.ssh"
+    generate_keys:
+      - filename: github
+        regenerate: partial_idempotence
+        type: ed25519
 hyprland:
   packages:
+    - name: libnewt
     - name: hyprland
     - name: hyprcursor
     - name: hypridle
     - name: hyprlock
     - name: hyprpaper
+    - name: uwsm
   services:
     # This should be anabled on default
     - name: getty@tty1.service
@@ -33,23 +66,25 @@ hyprland:
     - name: hyprpaper.service
 apps:
   packages:
+    - name: discord
     - name: fastfetch
     - name: firefox
     - name: git
     - name: imv
     - name: kitty
+    - name: less
     - name: neovim
       # - name: plymouth
-    - name: python
-    - name: python-pipx
     - name: ripgrep
     - name: rofi
     - name: rsync
+    - name: spotify-launcher
     - name: starship
+    - name: tree
     - name: waybar
     - name: wl-clipboard
     - name: wofi
-    - name: yay
+    # - name: yay
   aur: []
   services:
     - name: pipewire.service
@@ -62,11 +97,21 @@ apps:
 devtools:
   python:
     packages:
+      - name: python
+      - name: python-pipx
+    pipx_packages:
       - name: ansible
         install_deps: true
       - name: uv
   zig:
     zvm: true
+aur:
+  user: aur_builder
+  helper: yay
+  yay:
+    packages:
+      - name: base-devel
+      - name: git
 dotfiles:
   config_dir: "{{ ansible_facts.user_dir }}/.config"
 theming:

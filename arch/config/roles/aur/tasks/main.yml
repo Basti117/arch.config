@@ -1,8 +1,15 @@
+- ansible.builtin.import_tasks: yay.yml
+  when:
+    - aur_packages is defined
+    - aur_packages | length > 0
+
 - name: Install AUR packages
   become: true
-  become_user: "{{ ansible_facts.user_id }}"
-  ansible.builtin.command:
-    cmd: "yay -Sy --noconfirm --needed {{ package.name }}"
+  become_user: "{{ aur.user }}"
+  kewlfft.aur.aur:
+    name: "{{ package.name }}"
+    use: auto
+    state: "{{ package.state | default('present') }}"
   loop: "{{ aur_packages }}"
   loop_control:
     loop_var: package

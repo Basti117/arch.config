@@ -11,9 +11,9 @@
 
 - name: Install nightly release of zig and zls
   ansible.builtin.command:
-    cmd: zvm install --zls master
+    cmd: "{{ ansible_facts.user_dir }}/.zvm/self/zvm install --zls master"
 
 - name: Use zig nightly release
   ansible.builtin.command:
-    cmd: zvm use master
+    cmd: "{{ ansible_facts.user_dir }}/.zvm/self/zvm use master"
 

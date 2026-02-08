@@ -1,3 +1,3 @@
-if [[ "$(tty)" = "/dev/tty1" ]]; then
-  exec Hyprland
+if uwsm check may-start; then
+    exec uwsm start hyprland.desktop
 fi
