@@ -15,9 +15,4 @@ export PATH="$PATH:$HOME/.zvm/bin"
 export PATH="$PATH:$ZVM_INSTALL/"
 export PATH="$PATH:$HOME/.local/bin"
 
-# Start ssh-agent if not already running
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    eval "$(ssh-agent -s)"
-fi
-
 fastfetch
