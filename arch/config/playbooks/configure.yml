@@ -2,17 +2,19 @@
   hosts: localhost
   collections:
     - arch.config
+  vars:
+    roles:
+      - base
+      - bash
+      - hyprland
+      - theming
+      - apps
+      - devtools
   tasks:
     - name: Include roles
       ansible.builtin.include_role:
         name: "{{ role }}"
-      loop:
-        - base
-        - bash
-        - hyprland
-        - theming
-        - apps
-        - devtools
+      loop: "{{ roles }}"
       loop_control:
         loop_var: role
 
