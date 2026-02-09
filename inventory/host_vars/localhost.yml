@@ -47,6 +47,7 @@ base:
         regenerate: partial_idempotence
         type: ed25519
 hyprland:
+  wallpaper: https://raw.githubusercontent.com/JaKooLit/Wallpaper-Bank/refs/heads/main/wallpapers/Lady.png
   packages:
     - name: libnewt
     - name: hyprland
@@ -54,6 +55,7 @@ hyprland:
     - name: hypridle
     - name: hyprlock
     - name: hyprpaper
+    - name: imagemagick
     - name: uwsm
   services:
     # This should be anabled on default
