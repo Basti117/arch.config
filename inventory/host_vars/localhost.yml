@@ -76,6 +76,7 @@ apps:
     - name: kitty
     - name: less
     - name: neovim
+    - name: pavucontrol
       # - name: plymouth
     - name: ripgrep
     - name: rofi

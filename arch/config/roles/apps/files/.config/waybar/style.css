@@ -1,13 +1,12 @@
 /* vim:fileencoding=utf-8:foldmethod=marker
 */
 
+/* Define colors */
 @define-color light-primary 	#fbf1c7;
 @define-color light-secondary 	#84A298;
-@define-color light-tertiary	#D0DEC8;
 @define-color dark-primary 	#32302f;
-@define-color dark-secondary 	#3c3836;
+@define-color dark-secondary	#4A4847;
 
-/* Define colors */ /* {{{ */
 @define-color background  rgba(107, 99, 93, 0.75);
 /* @define-color background  #151520; */
 @define-color warning     #f38ba8;
@@ -20,9 +19,8 @@
 @define-color window      #b4befe;
 @define-color resize      #eba0ac;
 @define-color process     #89b4fa;
-/* }}} */
 
-/* Reset all styles */ /* {{{ */
+/* Reset all styles */
 * {
   border: none;
   border-radius: 0;
@@ -31,17 +29,17 @@
   padding: 0;
   box-shadow: none;
   text-shadow: none;
-} /* }}} */
+}
 
-/* Main bar keyframes */ /* {{{ */
+/* Main bar keyframes */
 /* Keyframes for main bar modifiers */
 @keyframes blink-modifier-text {
   to {
     color: @caution;
   }
-} /* }}} */
+}
 
-/* Main bar defaults */ /* {{{ */
+/* Main bar defaults */
 #waybar.main {
   /* background: transparent; */
   background: transparent;
@@ -51,7 +49,7 @@
 }
 
 .modules-center {
-  border: 2px solid @light-primary;
+  border: 2px solid @dark-secondary;
   border-radius: 100px;
   padding: 2px 4px;
 }
@@ -61,9 +59,9 @@
   font-size: 10pt;
   font-weight: 500;
   transition: all 0.15s ease-in-out;
-} /* }}} */
+}
 
-/* Main bar modules */ /* {{{ */
+/* Main bar modules */
 #waybar.main #network,
 #waybar.main #battery,
 #waybar.main #clock,
@@ -77,9 +75,7 @@
   background: transparent;
 }
 
-/* }}} */
-
-/* Module colors */ /* {{{ */
+/* Module colors */
 #waybar.main #network,
 #waybar.main #pulseaudio,
 #waybar.main #battery,
@@ -97,35 +93,14 @@
 #waybar.main #network.info.wifi.normal,
 #waybar.main #network.info.ethernet {
   color: @light-primary;
-  padding-right: 15px;
 }
 
 #waybar.main #network.info.wifi {
   color: @primary-light;
   padding-right: 15px;
-} /* }}} */
-
-/* Submap */ /* {{{ */
-#waybar.main #submap.󰲏 {
-  color: @resize;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-name: blink-modifier-text;
-  animation-duration: 1s;
-  animation-timing-function: steps(15);
 }
 
-#waybar.main #submap. {
-  color: @date;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-name: blink-modifier-text;
-  animation-duration: 1s;
-  animation-timing-function: steps(15);
-}
-/* }}} */
-
-/* Main bar warnings */ /* {{{ */
+/* Main bar warnings */
 #waybar.main #pulseaudio.output.muted,
 #waybar.main #pulseaudio.input.source-muted {
   color: @caution;
@@ -133,55 +108,55 @@
 
 #waybar.main #battery.warning.discharging {
   color: @warning;
-} /* }}} */
+}
 
-/* Workspace */ /* {{{ */
+/* Workspace */
 /* Default workspace settings */
 #waybar.main #workspaces button {
-  color: @caution;
-  background: @light-secondary;
-  border: 1.5px solid transparent;
-  padding-left: 6pt;
-  padding-right: 6pt;
-  border-radius: 16px;
-  margin-bottom: 8px;
-  margin-top: 8px;
-  margin-left: 4px;
-  margin-right: 4px;
+  color: @dark-secondary;
+  background: transparent;
   transition: all 0.25s ease;
+  border-radius: 16px;
+  margin: 4px;
 }
 
 /* Focused workspace */
 #waybar.main #workspaces button.visible {
-  background: @light-secondary;
+  background: @dark-secondary;
+  background-clip: padding-box;
   color: @dark-primary;
+  border-color: @dark-secondary;
+  animation: breathe 12s ease infinite;
+  margin: 4px 8px;
+  padding-left: 6pt;
+  padding-right: 6pt;
+}
+
+#waybar.main #workspaces button.special.active:hover,
+#waybar.main #workspaces button.active:hover {
+  background: @light-primary;
+  color: @dark-primary;
+  transition: 0.5s;
 }
 
 /* Focused workspace & monitor */
+#waybar.main #workspaces button.special.active,
 #waybar.main #workspaces button.active {
-  background: @light-primary;
+  background: linear-gradient(to right, @light-primary, @light-secondary);
+  background-clip: padding-box;
   color: @dark-primary;
+  animation: breathe 12s ease infinite;
+  margin: 4px 8px;
+  padding-left: 6pt;
+  padding-right: 6pt;
 }
 
 /* Style when cursor is on the button */
 #waybar.main #workspaces button:hover {
-  background: @light-secondary;
-  color: @dark-primary;
+  color: @light-primary;
 }
 
-/* Special workplace animation */
-#waybar.main #workspaces button.special.active {
-  background: @light-primary;
-  color: @dark-primary;
-  transition: all 0s ease;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-name: blink-modifier-text;
-  animation-duration: 1s;
-  animation-timing-function: steps(15);
-} /* }}} */
-
-/* Custom slashes as spacers */ /* {{{ */
+/* Custom slashes as spacers */
 #waybar.main #custom-spacer {
   font-size: 10pt;
   font-weight: bold;
@@ -197,9 +172,8 @@
   margin-left: 4px;
   margin-right: 12px;
 }
-/* }}} */
 
-/* Custom tray icon */ /* {{{ */
+/* Custom tray icon */
 #waybar.main #custom-trayicon {
   font-size: 11pt;
   font-weight: bold;
@@ -209,9 +183,8 @@
   padding-right: 6pt;
   padding-left: 2pt;
 }
-/* }}} */
 
-/* Tooltip */ /* {{{ */
+/* Tooltip */
 tooltip {
   background: @dark-primary;
   border: 3px solid @caution;
@@ -224,9 +197,9 @@ tooltip {
   background: @background;
   border: 3px solid @caution;
   border-radius: 8px;
-} /* }}} */
+}
 
-/* indicator bar battery module */ /* {{{ */
+/* indicator bar battery module */
 
 /* Set defaults for indicator bar */
 #waybar.indicator {

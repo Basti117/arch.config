@@ -1,5 +1,4 @@
 [
-
   {
     // MAIN BAR //
     "layer": "top",
@@ -7,57 +6,16 @@
     "name": "main",
     "margin-top": 5,
     "modules-center": [
-      // "group/tray",
-      // "custom/spacer3",
-      "hyprland/workspaces",
-      // "custom/spacer2",
-      // "custom/spacer3",
-      // "hyprland/submap",
-      // "hyprland/window"
-      // "network#info",
-      "custom/spacer",
-      // "hyprland/language",
-      // "backlight",
-      //"custom/battery",
-      // "battery",
-      // "custom/spacer1",
-      // "custom/weather",
       "clock",
+      "hyprland/workspaces",
       "custom/spacer",
-      "group/status"
+      "pulseaudio#output",
+      "custom/spacer",
+      "network#info",
+      "custom/spacer",
+      "battery"
     ],
-
-
     // Modules
-    "disk": {
-      "interval": 16,
-      "format": " {percentage_used}%",
-      "tooltip": "{}",
-      "tooltip-format": "Free {free}",
-      "on-click": "qdirstat & aplay ~/.config/sounds/interact.wav",
-      "states": {
-        "warning": 85,
-        "critical": 95
-      }
-    },
-
-    "group/storage": {
-      "orientation": "horizontal",
-      "drawer": {
-        "transition-duration": "500",
-        "transition-left-to-right": "true",
-        "children-class": "drawer-child"
-        //"click-to-reveal": "false"
-      },
-      "modules": ["memory#ram", "memory#swap", "disk"]
-    },
-
-    "backlight": {
-      "device": "intel_backlight",
-      "format": "{icon} {percent}%",
-      "format-icons": ["󱩎", "󱩑", "󱩓", "󱩕", "󰛨"],
-      "scroll-step": 5
-    },
     "battery": {
 	    "interval": 60,
 	    "states": {
@@ -68,20 +26,9 @@
 	    "format-icons": ["", "", "", "", ""],
 	    "max-length": 25
 	},
-    //"custom/battery": {
-    //  "interval": 4,
-    //  "return-type": "json",
-    //  "exec": "~/.config/hypr/themes/Mocha/bat-pp.sh refresh",
-    //  "exec-on-event": true,
-    //  "format": "{text}%",
-    //  "on-click": "~/.config/hypr/themes/Mocha/bat-pp.sh toggle & aplay ~/.config/sounds/interact.wav",
-    //  "tooltip": "true",
-    //  "tooltip-format": "{alt}W"
-    //},
-
     "clock": {
       "interval": 1,
-      "format": " {:%H:%M}",
+      "format": "{:%H:%M}",
       "tooltip-format": "{:%d.%m.%Y   Week %W}\n\n<tt><small>{calendar}</small></tt>",
       "calendar": {
         "mode": "month",
@@ -98,12 +45,11 @@
       },
       "on-click": "chromium --app=https://calendar.google.com & aplay ~/.config/sounds/interact.wav"
     },
-
     "network#info": {
       "interval": 2,
       "format": "󱘖  Offline",
       "format-wifi": "{icon}",
-      "format-ethernet": "󰈀 {bandwidthDownBits}",
+      "format-ethernet": "󰈀",
       "tooltip": "{}",
       "tooltip-format-wifi": "{ifname}\n{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}",
       "tooltip-format-ethernet": "{ifname}\n󰇚 {bandwidthDownBits} \n󰕒 {bandwidthUpBits}",
@@ -113,41 +59,6 @@
         "normal": 25
       }
     },
-
-    "network#up": {
-      "interval": 4,
-      "format": " ",
-      "format-wifi": "󰕒 {bandwidthUpBits}",
-      "format-ethernet": "󰕒 {bandwidthUpBits}",
-      "format-disconnected": " ",
-      "min-length": 11
-    },
-
-    "network#down": {
-      "interval": 4,
-      "format": "󰇚 {bandwidthDownBits}",
-      "format-wifi": "󰇚 {bandwidthDownBits}",
-      "format-ethernet": "󰇚 {bandwidthDownBits}",
-      "min-length": 11
-    },
-
-    "hyprland/submap": {
-      "always-on": true,
-      "default-submap": "",
-      "format": "{}",
-      "format-RESIZE": "{}lol",
-      "tooltip": false
-    },
-
-    "hyprland/window": {
-      "format": "{title}",
-      "max-length": 48,
-      "tooltip": false,
-      "icon": true,
-      "icon-size": 18,
-      "tooltip": true
-    },
-
     "hyprland/workspaces": {
       "disable-scroll-wraparound": true,
       "smooth-scrolling-threshold": 4,
@@ -159,22 +70,15 @@
         "magic": " "
       }
     },
-
     "pulseaudio#output": {
-      "format": "{icon} {volume}%",
-      "format-bluetooth": "{icon} {volume}%",
+      "format": "{icon}",
+      "format-bluetooth": "{icon}",
       "format-source-muted": "{volume}",
       "format-icons": {
-        "headphone": "",
-        "hands-free": "",
-        "headset": "",
-        "phone": "",
-        "portable": "",
-        "car": "",
         "default": ["", ""]
       },
       "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-      "on-click": "pwvucontrol & aplay ~/.config/sounds/interact.wav",
+      "on-click": "pavucontrol",
       "tooltip": true,
       "scroll-step": 5
     },
@@ -183,34 +87,8 @@
       "spacing": 8
     },
     "custom/spacer": {
-      "format": "||",
+      "format": " ",
       "tooltip": false
     },
-    "custom/shutdown": {
-      "format": "",
-      "tooltip": "false",
-      "on-click": "shutdown now"
-    },
-    "custom/status": {
-      "format": "",
-      "tooltip": "false"
-    },
-    "group/status": {
-      "orientation": "horizontal",
-      "drawer": {
-        "transition-duration": "500",
-        "transition-left-to-right": "true",
-        "children-class": "drawer-child"
-      },
-      "modules": [
-	"custom/status",
-	"custom/shutdown",
-	"custom/spacer",
-	"pulseaudio#output",
-	"custom/spacer",
-	"network#info",
-	"battery"
-      ]
-    }
   }
 ]
