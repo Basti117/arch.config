@@ -4,15 +4,6 @@
   vars:
     packages: "{{ hyprland.packages }}"
 
-- name: Download wallpaper
-  ansible.builtin.get_url:
-    url: "{{ hyprland.wallpaper }}"
-    dest: "{{ dotfiles.config_dir }}/hypr/wallpaper.png"
-
-- name: Blur wallpaper
-  ansible.builtin.command:
-    cmd: "magick {{ dotfiles.config_dir }}/hypr/wallpaper.png -blur 0x8 {{ dotfiles.config_dir }}/hypr/wallpaper-blurred.png"
-
 - name: Setup config files
   ansible.builtin.include_role:
     name: dotfiles
@@ -25,6 +16,15 @@
     name: services
   vars:
     services: "{{ hyprland.services }}"
+
+- name: Download wallpaper
+  ansible.builtin.get_url:
+    url: "{{ hyprland.wallpaper }}"
+    dest: "{{ dotfiles.config_dir }}/hypr/wallpaper.png"
+
+- name: Blur wallpaper
+  ansible.builtin.command:
+    cmd: "magick {{ dotfiles.config_dir }}/hypr/wallpaper.png -blur 0x8 {{ dotfiles.config_dir }}/hypr/wallpaper-blurred.png"
 
 - name: Create systemd override directory for getty@tty1
   become: true

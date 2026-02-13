@@ -75,7 +75,9 @@ apps:
     - name: imv
     - name: kitty
     - name: less
+    - name: nodejs
     - name: neovim
+    - name: npm
     - name: pavucontrol
       # - name: plymouth
     - name: ripgrep

@@ -130,14 +130,14 @@ return {
 		}
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
+			"lua_ls",
 			"stylua", -- Used to format Lua code
 			"ruff",
 			"pyright",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-		local lspconfig = require("lspconfig")
-		lspconfig.pyright.setup({
-			filetypes = { "py" },
+		vim.lsp.config("pyright", {
+			filetypes = { "python" },
 			settings = {
 				python = {
 					analysis = {
@@ -153,8 +153,8 @@ return {
 				},
 			},
 		})
-		lspconfig.ruff.setup({
-			filetypes = { "py" },
+		vim.lsp.config("ruff", {
+			filetypes = { "python" },
 			init_options = {
 				settings = {
 					args = {},
@@ -173,7 +173,7 @@ return {
 					-- by the server configuration above. Useful when disabling
 					-- certain features of an LSP (for example, turning off formatting for ts_ls)
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					lspconfig[server_name].setup(server)
+					vim.lsp.config[server_name].setup(server)
 				end,
 			},
 		})

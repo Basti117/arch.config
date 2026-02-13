@@ -1,7 +1,6 @@
 return { -- Highlight, edit, and navigate code
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
-	main = "nvim-treesitter.configs",
 	opts = {
 		ensure_installed = {
 			"bash",
@@ -12,15 +11,14 @@ return { -- Highlight, edit, and navigate code
 			"luadoc",
 			"markdown",
 			"markdown_inline",
+			"ninja",
 			"query",
+			"rst",
 			"vim",
 			"vimdoc",
 		},
 		auto_install = true,
-		highlight = {
-			enable = true,
-			additional_vim_regex_highlighting = { "ruby" },
-		},
-		indent = { enable = true, disable = { "ruby" } },
+		highlight = { enable = true },
+		indent = { enable = true },
 	},
 }

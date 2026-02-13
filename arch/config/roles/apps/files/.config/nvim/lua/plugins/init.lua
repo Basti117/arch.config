@@ -14,16 +14,17 @@ local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
 require("lazy").setup({
-	{ import = "plugins.guess-indent" },
-	{ import = "plugins.catppuccin" },
-	{ import = "plugins.gitsigns" },
-	{ import = "plugins.which-key" },
-	{ import = "plugins.telescope" },
-	{ import = "plugins.lazydev" },
-	{ import = "plugins.nvim-lspconfig" },
-	{ import = "plugins.conform" },
 	{ import = "plugins.blink" },
-	{ import = "plugins.todo-comments" },
+	{ import = "plugins.catppuccin" },
+	{ import = "plugins.conform" },
+	{ import = "plugins.gitsigns" },
+	{ import = "plugins.guess-indent" },
+	{ import = "plugins.lazydev" },
 	{ import = "plugins.mini" },
+	{ import = "plugins.nvim-highlight-colors" },
+	{ import = "plugins.nvim-lspconfig" },
 	{ import = "plugins.nvim-treesitter" },
+	{ import = "plugins.telescope" },
+	{ import = "plugins.todo-comments" },
+	{ import = "plugins.which-key" },
 })
