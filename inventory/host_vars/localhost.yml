@@ -88,8 +88,6 @@ apps:
     - name: tree
     - name: waybar
     - name: wl-clipboard
-    - name: wofi
-    # - name: yay
   aur: []
   services:
     - name: pipewire.service

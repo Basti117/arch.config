@@ -1,0 +1,94 @@
+* {
+  background: #32302f;
+  foreground: #fbf1c7;
+  border-color: #84a298;
+  selected-color: #84a298;
+  width: 350;
+  font: "JetBrainsMono Nerd Font Mono 11";
+}
+
+element-text, element-icon, mode-switcher {
+  background-color: inherit;
+  text-color: inherit;
+}
+
+window {
+  height: 360px;
+  border: 2px;
+  border-color: @border-color;
+  border-radius: 25px;
+  background-color: @background;
+}
+
+mainbox {
+  background-color: @background;
+}
+
+inputbar {
+  children: [prompt, entry];
+  background-color: @background;
+}
+
+prompt {
+  background-color: @background;
+  text-color: @foreground;
+  border-radius: 25px;
+  border-color: @border-color;
+  margin: 20px 0px 0px 20px;
+  padding: 0px;
+}
+
+entry {
+  padding: 6px;
+  margin: 10px;
+  text-color: @foreground;
+  background-color: @background;
+}
+
+listview {
+  columns: 1;
+  margin: 0px 10px;
+  lines: 5;
+  background-color: @background;
+}
+
+element {
+  padding: 10px;
+  background-color: @background;
+  text-color: @foreground;
+  border-radius: 25px;
+}
+
+element selected {
+  background-color: @selected-color;
+  text-color: @background;
+}
+
+mode-switcher {
+  spacing: 0;
+}
+
+button {
+  padding: 10px;
+  background-color: @background;
+  text-color: @foreground;
+  border-color: @border-color;
+  vertical-align: 0.5; 
+  horizontal-align: 0.5;
+}
+
+button selected {
+  background-color: @selected-color;
+  text-color: @foreground;
+}
+
+message {
+  background-color: @foreground;
+  border-radius: 25px;
+}
+
+textbox {
+  text-color: @foreground;
+  background-color: @background;
+}
+
