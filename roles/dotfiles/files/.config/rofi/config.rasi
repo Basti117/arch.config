@@ -12,7 +12,7 @@ configuration {
     sidebar-mode: false;
 }
 
-@theme "colors/colors.rasi"
+@theme "themes/active.rasi"
 
 * {
   width: 350;

@@ -15,7 +15,7 @@ rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{ import = "plugins.blink" },
-	{ import = "plugins.colors.colors" },
+	{ import = "plugins.themes.active" },
 	{ import = "plugins.conform" },
 	{ import = "plugins.gitsigns" },
 	{ import = "plugins.guess-indent" },
