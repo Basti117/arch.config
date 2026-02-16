@@ -1,0 +1,30 @@
+- name: "Create mount point for {{ dual_boot.secondary.name }} esp ({{ dual_boot.secondary.mount_point }})"
+  become: true
+  ansible.builtin.file:
+    path: "{{ dual_boot.secondary.mount_point }}"
+    state: directory
+    mode: "0755"
+
+- name: "Mount {{ dual_boot.secondary.name }} esp into {{ dual_boot.primary.name }}"
+  become: true
+  ansible.posix.mount:
+    path: "{{ dual_boot.secondary.mount_point }}"
+    src: "{{ dual_boot.secondary.esp }}"
+    fstype: "{{ dual_boot.secondary.fstype }}"
+    state: mounted
+
+- name: "Copy {{ dual_boot.secondary.mount_point }}/{{ dual_boot.secondary.sub_path }} to {{ dual_boot.primary.mount_point }}"
+  become: true
+  ansible.builtin.copy:
+    src: "{{ dual_boot.secondary.mount_point }}/{{ dual_boot.secondary.sub_path }}"
+    dest: "{{ dual_boot.primary.mount_point }}"
+    remote_src: true
+    mode: '0644'
+
+- name: Create boot loader entry for windows
+  become: true
+  ansible.builtin.copy:
+    dest: "{{ dual_boot.primary.bootloader.entry_dir }}/{{ dual_boot.secondary.name | lower }}.conf"
+    content: |
+      title {{ dual_boot.secondary.name }}
+      efi {{ dual_boot.secondary.bootloader.file }}

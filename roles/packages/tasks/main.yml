@@ -1,0 +1,17 @@
+- name: Update pacman cache and upgrade
+  become: true
+  community.general.pacman:
+    update_cache: true
+    upgrade: true
+
+- name: Install official arch packages
+  become: true
+  community.general.pacman:
+    name: "{{ package.name }}"
+    state: "{{ package.state | default('present') }}"
+  loop: "{{ packages }}"
+  loop_control:
+    loop_var: package
+  when:
+    - packages is defined
+    - packages | length > 0

@@ -1,0 +1,187 @@
+@import "colors/colors.css";
+
+/* Reset all styles */
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+/* Main bar keyframes */
+/* Keyframes for main bar modifiers */
+@keyframes blink-modifier-text {
+  to {
+    color: @red;
+  }
+}
+
+/* Main bar defaults */
+#waybar.main {
+  background: transparent;
+  font-family: "JetBrains Mono Nerd Font";
+  font-size: 10pt;
+  font-weight: 500;
+}
+
+.modules-center {
+  border: 2px solid @bg1;
+  border-radius: 100px;
+  padding: 2px 4px;
+}
+
+#waybar.main button {
+  font-family: JetBrains Mono Nerd Font;
+  font-size: 10pt;
+  font-weight: 500;
+  transition: all 0.15s ease-in-out;
+}
+
+/* Main bar modules */
+#waybar.main #network,
+#waybar.main #battery,
+#waybar.main #clock,
+#waybar.main #pulseaudio,
+#waybar.main #window,
+#waybar.main #disk {
+  padding-left: 8pt;
+  padding-right: 8pt;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  background: transparent;
+}
+
+/* Module colors */
+#waybar.main #network,
+#waybar.main #pulseaudio,
+#waybar.main #battery,
+#waybar.main #clock {
+  color: @accent0;
+}
+
+#waybar.main #network.info {
+  padding-right: 10px;
+  padding-left: 10px;
+  color: @accent0;
+  background: transparent;
+}
+
+#waybar.main #network.info.wifi.normal,
+#waybar.main #network.info.ethernet {
+  color: @accent0;
+}
+
+#waybar.main #network.info.wifi {
+  color: @primary-light;
+  padding-right: 15px;
+}
+
+/* Main bar warnings */
+#waybar.main #pulseaudio.output.muted,
+#waybar.main #pulseaudio.input.source-muted {
+  color: @red;
+}
+
+#waybar.main #battery.warning.discharging {
+  color: @orange;
+}
+
+/* Workspace */
+/* Default workspace settings */
+#waybar.main #workspaces button {
+  color: @bg1;
+  background: transparent;
+  transition: all 0.25s ease;
+  border-radius: 16px;
+  margin: 4px;
+}
+
+/* Focused workspace */
+#waybar.main #workspaces button.visible {
+  background: @bg1;
+  background-clip: padding-box;
+  color: @bg0;
+  border-color: @bg1;
+  animation: breathe 12s ease infinite;
+  margin: 4px 8px;
+  padding-left: 6pt;
+  padding-right: 6pt;
+}
+
+#waybar.main #workspaces button.special.active:hover,
+#waybar.main #workspaces button.active:hover {
+  background: @accent0;
+  color: @bg0;
+  transition: 0.5s;
+}
+
+/* Focused workspace & monitor */
+#waybar.main #workspaces button.special.active,
+#waybar.main #workspaces button.active {
+  background: linear-gradient(to right, @accent0, @accent1);
+  background-clip: padding-box;
+  color: @bg0;
+  animation: breathe 12s ease infinite;
+  margin: 4px 8px;
+  padding-left: 6pt;
+  padding-right: 6pt;
+}
+
+/* Style when cursor is on the button */
+#waybar.main #workspaces button:hover {
+  color: @accent0;
+}
+
+/* Custom slashes as spacers */
+#waybar.main #custom-spacer {
+  font-size: 10pt;
+  font-weight: bold;
+  color: @accent0;
+  background: transparent;
+}
+
+#waybar.main #custom-shutdown,
+#waybar.main #custom-status {
+  color: @accent0;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  margin-left: 4px;
+  margin-right: 12px;
+}
+
+/* Custom tray icon */
+#waybar.main #custom-trayicon {
+  font-size: 11pt;
+  font-weight: bold;
+  font-style: italic;
+  color: @blue;
+  background: transparent;
+  padding-right: 6pt;
+  padding-left: 2pt;
+}
+
+/* Tooltip */
+tooltip {
+  background: @bg0;
+  border: 3px solid @red;
+  border-radius: 8px;
+  font-weight: 500;
+  font-family: "JetBrains Mono Nerd Font";
+}
+
+#waybar.main #tray menu {
+  border: 3px solid @red;
+  border-radius: 8px;
+}
+
+/* Set defaults for indicator bar */
+#waybar.indicator {
+  font-size: 27px;
+  /* This makes indicator thicker */
+  color: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0);
+}
+

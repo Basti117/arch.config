@@ -1,0 +1,28 @@
+- name: Execute roles
+  hosts: localhost
+  roles:
+    - role: packages
+      tags:
+        - packages
+    - role: dotfiles
+      tags:
+        - dotfiles
+    - role: services
+      tags:
+        - services
+    - role: dual_boot
+      tags:
+        - dual_boot
+    - role: ssh
+      tags:
+        - ssh
+    - role: devtools
+      tags:
+        - devtools
+    - role: theming
+      tags:
+        - theming
+    - role: hyprland
+      tags:
+        - hyprland
+

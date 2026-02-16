@@ -16,5 +16,5 @@ python -m pip install ansible cryptography
 ansible-galaxy collection install -r requirements.yml
 
 echo "Configuring setup..."
-ansible-playbook arch/config/playbooks/configure.yml -i inventory/ --ask-become-pass
+ansible-playbook main.yml -i inventory/ -K
 
