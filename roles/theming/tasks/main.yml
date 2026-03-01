@@ -1,3 +1,17 @@
+- name: Create wallpaper directory
+  ansible.builtin.file:
+    path: "{{ ansible_facts.user_dir }}/.config/hypr/wallpapers"
+    state: directory
+    mode: "0755"
+
+- name: Download wallpaper
+  ansible.builtin.get_url:
+    url: "{{ wallpaper.url }}"
+    dest: "{{ wallpaper.dest }}"
+  loop: "{{ theming.wallpapers }}"
+  loop_control:
+    loop_var: wallpaper
+
 - name: Ensure GTK config directory exists
   ansible.builtin.file:
     path: "{{ dir }}"
@@ -10,6 +24,11 @@
     - "{{ theming.cursor.dir }}"
   loop_control:
     loop_var: dir
+
+- name: Set gtk theme
+  become: true
+  ansible.builtin.command:
+    cmd: gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 
 - name: Install '{{ theming.cursor.name }}' cursor
   become: true

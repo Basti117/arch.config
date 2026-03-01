@@ -1,17 +1,3 @@
-- name: Create wallpaper directory
-  ansible.builtin.file:
-    path: "{{ ansible_facts.user_dir }}/.config/hypr/wallpapers"
-    state: directory
-    mode: "0755"
-
-- name: Download wallpaper
-  ansible.builtin.get_url:
-    url: "{{ wallpaper.url }}"
-    dest: "{{ wallpaper.dest }}"
-  loop: "{{ theming.wallpapers }}"
-  loop_control:
-    loop_var: wallpaper
-
 - name: Create systemd override directory for getty@tty1
   become: true
   ansible.builtin.file:
