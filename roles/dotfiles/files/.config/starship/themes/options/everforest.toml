@@ -1,0 +1,94 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[](bg2)\
+$os\
+$username\
+[](bg:bg3 fg:bg2)\
+$directory\
+[](bg:bg4 fg:bg3)\
+$git_branch\
+$git_status\
+[ ](fg:bg4)\
+$cmd_duration\
+$line_break\
+$character"""
+
+palette = 'everforest'
+
+[os]
+disabled = false
+style = "bg:bg2 fg:fg"
+
+[os.symbols]
+Windows = ""
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+[username]
+show_always = true
+style_user = "bg:bg2 fg:fg"
+style_root = "bg:bg2 fg:fg"
+format = '[ $user ]($style)'
+
+[directory]
+style = "bg:bg3 fg:fg"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "bg:bg4"
+format = '[[ $symbol $branch ](fg:fg bg:bg4)]($style)'
+
+[git_status]
+style = "bg:bg4"
+format = '[[($all_status$ahead_behind )](fg:fg bg:bg4)]($style)'
+
+[line_break]
+disabled = true
+
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+
+[cmd_duration]
+show_milliseconds = true
+format = " in $duration "
+style = "bg:fg"
+disabled = false
+show_notifications = true
+min_time_to_notify = 45000
+
+[palettes.everforest]
+bg2 = "#434f55"
+bg3 = "#4d5960"
+bg4 = "#555f66"
+fg = "#d3c6aa"
+red = "#e67e80"
+green = "#a7c080"

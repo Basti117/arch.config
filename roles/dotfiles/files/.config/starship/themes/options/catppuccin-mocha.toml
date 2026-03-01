@@ -1,24 +1,24 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](crust)\
+[](blue)\
 $os\
 $username\
-[](bg:mantle fg:crust)\
+[](bg:pink fg:blue)\
 $directory\
-[](bg:base fg:mantle)\
+[](bg:mauve fg:pink)\
 $git_branch\
 $git_status\
-[ ](fg:base)\
+[ ](fg:mauve)\
 $cmd_duration\
 $line_break\
 $character"""
 
-palette = 'dark_warm'
+palette = 'catppuccin_mocha'
 
 [os]
 disabled = false
-style = "bg:crust fg:text"
+style = "bg:blue fg:crust"
 
 [os.symbols]
 Windows = ""
@@ -43,12 +43,12 @@ RedHatEnterprise = "󱄛"
 
 [username]
 show_always = true
-style_user = "bg:crust fg:text"
-style_root = "bg:crust fg:text"
+style_user = "bg:blue fg:crust"
+style_root = "bg:blue fg:crust"
 format = '[ $user ]($style)'
 
 [directory]
-style = "bg:mantle fg:text"
+style = "bg:pink fg:crust"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -62,12 +62,12 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:base"
-format = '[[ $symbol $branch ](fg:text bg:base)]($style)'
+style = "bg:mauve"
+format = '[[ $symbol $branch ](fg:crust bg:mauve)]($style)'
 
 [git_status]
-style = "bg:base"
-format = '[[($all_status$ahead_behind )](fg:text bg:base)]($style)'
+style = "bg:mauve"
+format = '[[($all_status$ahead_behind )](fg:crust bg:mauve)]($style)'
 
 [line_break]
 disabled = true
@@ -84,15 +84,6 @@ style = "bg:lavender"
 disabled = false
 show_notifications = true
 min_time_to_notify = 45000
-
-[palettes.dark_warm]
-red = "#b06f6f"
-green = "#84a298"
-text = "#faf0f4"
-base = "#656463"
-mantle = "#565453"
-crust = "#454342"
-lavender = "#b4befe"
 
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"

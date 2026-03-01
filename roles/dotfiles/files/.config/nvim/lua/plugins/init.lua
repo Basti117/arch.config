@@ -15,7 +15,7 @@ rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{ import = "plugins.blink" },
-	{ import = "plugins.themes.active" },
+	{ import = "plugins.themes" },
 	{ import = "plugins.conform" },
 	{ import = "plugins.gitsigns" },
 	{ import = "plugins.guess-indent" },
@@ -28,3 +28,5 @@ require("lazy").setup({
 	{ import = "plugins.todo-comments" },
 	{ import = "plugins.which-key" },
 })
+
+require("themes.loader").load()

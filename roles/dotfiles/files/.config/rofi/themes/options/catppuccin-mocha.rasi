@@ -1,0 +1,5 @@
+* {
+  bg0: #313244;
+  fg: #cdd6f4;
+  accent0: #b4befe;
+}

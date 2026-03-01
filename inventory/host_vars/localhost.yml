@@ -36,6 +36,7 @@ packages:
   - name: imagemagick
   - name: uwsm
 
+  - name: rust
   - name: discord
   - name: fastfetch
   - name: firefox
@@ -97,10 +98,23 @@ devtools:
       - name: uv
   zig:
     zvm: true
+tools:
+  pipx_packages:
+    - name: ansible
+      install_deps: true
+    - name: uv
+  zig: true
+  swww: true
 dotfiles:
   config_dir: "{{ ansible_facts.user_dir }}/.config"
 theming:
-  wallpaper: https://raw.githubusercontent.com/JaKooLit/Wallpaper-Bank/refs/heads/main/wallpapers/Lady.png
+  wallpapers:
+    - dest: "{{ ansible_facts.user_dir }}/.config/hypr/themes/options/wallpapers/catppuccin-mocha.png"
+      src: https://w.wallhaven.cc/full/ex/wallhaven-exj2yl.png
+    - dest: "{{ ansible_facts.user_dir }}/.config/hypr/themes/options/wallpapers/everforest.png"
+      src: https://w.wallhaven.cc/full/ex/wallhaven-7py28o.png
+  wallpaper: https://w.wallhaven.cc/full/ex/wallhaven-exj2yl.png
+  # wallpaper: https://raw.githubusercontent.com/JaKooLit/Wallpaper-Bank/refs/heads/main/wallpapers/Lady.png
   font:
     name: JetBrainsMono Nerd Font Mono
     url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip

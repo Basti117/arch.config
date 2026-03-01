@@ -1,0 +1,37 @@
+applications:
+  - name: kitty
+    options: ~/.config/kitty/themes/options/
+    active: ~/.config/kitty/themes/active.conf
+    hooks:
+      - stage: post
+        cmd: pkill -SIGUSR1 kitty
+  - name: waybar
+    options: ~/.config/waybar/themes/options/
+    active: ~/.config/waybar/themes/active.css
+    hooks:
+      - stage: post
+        cmd: pkill waybar
+      - stage: post
+        cmd: waybar
+        detach: true
+  - name: hypr
+    options: ~/.config/hypr/themes/options/
+    active: ~/.config/hypr/themes/active.conf
+    hooks:
+      - stage: post
+        cmd: hyprctl reload
+  - name: rofi
+    options: ~/.config/rofi/themes/options/
+    active: ~/.config/rofi/themes/active.rasi
+  - name: nvim
+    options: ~/.config/nvim/lua/themes/options/
+    active: ~/.config/nvim/lua/themes/active.lua
+    hooks:
+      - stage: post
+        cmd: ./scripts/reload_nvim.sh {{ theme }}
+  - name: starship
+    options: ~/.config/starship/themes/options/
+    active: ~/.config/starship.toml
+    hooks:
+      - stage: post
+        cmd: ./scripts/reload_starship.sh
