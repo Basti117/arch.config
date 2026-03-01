@@ -20,6 +20,9 @@ applications:
     hooks:
       - stage: post
         cmd: hyprctl reload
+      - stage: post
+        cmd: killall hyprpaper && hyprpaper &
+        detach: true
   - name: rofi
     options: ~/.config/rofi/themes/options/
     active: ~/.config/rofi/themes/active.rasi
