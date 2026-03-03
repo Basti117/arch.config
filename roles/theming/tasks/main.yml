@@ -4,10 +4,31 @@
     state: directory
     mode: "0755"
 
-- name: Download wallpaper
+- name: Download wallpapers
   ansible.builtin.get_url:
     url: "{{ wallpaper.url }}"
     dest: "{{ wallpaper.dest }}"
+  loop: "{{ theming.wallpapers }}"
+  loop_control:
+    loop_var: wallpaper
+
+- name: Convert to PNG
+  ansible.builtin.command:
+    cmd: >
+      magick {{ wallpaper.dest }}
+      {{ wallpaper.dest | regex_replace('\.jpe?g$', '.png') }}
+    creates: >
+      {{ wallpaper.dest | regex_replace('\.jpe?g$', '.png') }}
+  when: not wallpaper.dest.endswith('.png')
+  loop: "{{ theming.wallpapers }}"
+  loop_control:
+    loop_var: wallpaper
+
+- name: Remove JPG
+  ansible.builtin.file:
+    path: "{{ wallpaper.dest }}"
+    state: absent
+  when: not wallpaper.dest.endswith('.png')
   loop: "{{ theming.wallpapers }}"
   loop_control:
     loop_var: wallpaper

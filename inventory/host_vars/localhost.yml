@@ -21,11 +21,15 @@ packages:
   - name: networkmanager-dmenu
   - name: pacman-contrib
   - name: unzip
-  - name: nvidia-open
+  - name: dkms
+  - name: linux-headers
+  - name: nvidia-open-dkms
+  # - name: nvidia-open
   - name: nvidia-utils
   # - name: lib32-nvidia-utils
   - name: nvidia-settings
   - name: openssh
+  - name: egl-wayland
 
   - name: libnewt
   - name: hyprland
@@ -36,6 +40,9 @@ packages:
   - name: imagemagick
   - name: uwsm
   - name: gnome-themes-extra
+  - name: pipewire
+  - name: wireplumber
+  - name: xdg-desktop-portal-hyprland
 
   - name: rust
   - name: discord
@@ -113,9 +120,9 @@ theming:
     url: https://github.com/vinceliuice/Graphite-gtk-theme/archive/refs/tags/2025-07-06.tar.gz
     dir: "{{ ansible_facts.user_dir }}/.local/share/themes"
   wallpapers:
-    - dest: "{{ ansible_facts.user_dir }}/.config/hypr/wallpapers/catppuccin-mocha.png"
+    - dest: "{{ ansible_facts.user_dir }}/.config/hueshift/hypr/themes/catppuccin/wallpapers/default.png"
       url: https://w.wallhaven.cc/full/ex/wallhaven-exj2yl.png
-    - dest: "{{ ansible_facts.user_dir }}/.config/hypr/wallpapers/everforest.jpg"
+    - dest: "{{ ansible_facts.user_dir }}/.config/hueshift/hypr/themes/everforest/wallpapers/default.jpg"
       url: https://w.wallhaven.cc/full/6q/wallhaven-6qj596.jpg
   font:
     name: JetBrainsMono Nerd Font Mono

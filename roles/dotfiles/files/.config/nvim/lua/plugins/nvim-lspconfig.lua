@@ -141,7 +141,9 @@ return {
 			settings = {
 				python = {
 					analysis = {
-						ignore = { "*" },
+						typeCheckingMode = "strict",
+						autoSearchPaths = true,
+						useLibraryCodeForTypes = true,
 					},
 				},
 				pyright = {

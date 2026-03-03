@@ -1,13 +1,21 @@
 applications:
   - name: kitty
-    options: ~/.config/kitty/themes/options/
-    active: ~/.config/kitty/themes/active.conf
+    themes: ~/.config/hueshift/kitty/themes/
+    components:
+      - name: colors
+        target:
+          path: ~/.config/kitty/colors.conf
+          type: link
     hooks:
       - stage: post
         cmd: pkill -SIGUSR1 kitty
   - name: waybar
-    options: ~/.config/waybar/themes/options/
-    active: ~/.config/waybar/themes/active.css
+    themes: ~/.config/hueshift/waybar/themes/
+    components:
+      - name: colors
+        target:
+          path: ~/.config/waybar/colors.css
+          type: link
     hooks:
       - stage: post
         cmd: pkill waybar
@@ -15,8 +23,16 @@ applications:
         cmd: waybar
         detach: true
   - name: hypr
-    options: ~/.config/hypr/themes/options/
-    active: ~/.config/hypr/themes/active.conf
+    themes: ~/.config/hueshift/hypr/themes/
+    components:
+      - name: colors
+        target:
+          path: ~/.config/hypr/colors.conf
+          type: link
+      - name: wallpapers
+        target:
+          path: ~/.config/hypr/wallpaper.png
+          type: link
     hooks:
       - stage: post
         cmd: hyprctl reload
@@ -24,17 +40,29 @@ applications:
         cmd: killall hyprpaper && hyprpaper &
         detach: true
   - name: rofi
-    options: ~/.config/rofi/themes/options/
-    active: ~/.config/rofi/themes/active.rasi
+    themes: ~/.config/hueshift/rofi/themes/
+    components:
+      - name: colors
+        target:
+          path: ~/.config/rofi/colors.rasi
+          type: link
   - name: nvim
-    options: ~/.config/nvim/lua/themes/options/
-    active: ~/.config/nvim/lua/themes/active.lua
+    themes: ~/.config/hueshift/nvim/themes/
+    components:
+      - name: colors
+        target:
+          path: ~/.config/nvim/lua/themes/active.lua
+          type: link
     hooks:
       - stage: post
-        cmd: ./scripts/reload_nvim.sh {{ theme }}
+        cmd: ./nvim/.scripts/reload.sh {{ theme }}
   - name: starship
-    options: ~/.config/starship/themes/options/
-    active: ~/.config/starship.toml
+    themes: ~/.config/hueshift/starship/themes/
+    components:
+      - name: colors
+        target:
+          path: ~/.config/starship.toml
+          type: link
     hooks:
       - stage: post
-        cmd: ./scripts/reload_starship.sh
+        cmd: ./starship/.scripts/reload.sh
