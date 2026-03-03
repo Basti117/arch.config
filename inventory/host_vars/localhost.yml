@@ -24,10 +24,10 @@ packages:
   - name: dkms
   - name: linux-headers
   - name: nvidia-open-dkms
-  # - name: nvidia-open
   - name: nvidia-utils
   # - name: lib32-nvidia-utils
   - name: nvidia-settings
+  - name: libva-nvidia-driver
   - name: openssh
   - name: egl-wayland
 
