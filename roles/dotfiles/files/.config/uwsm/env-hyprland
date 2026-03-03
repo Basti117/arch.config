@@ -1,0 +1,6 @@
+# --- Only set HYPR* amd AQ_* variables here ---
+export HYPRCURSOR_SIZE=24
+export HYPRLAND_TRACE=1
+
+export AQ_FORCE_LINEAR_BLIT=0
+export AQ_MGPU_NO_EXPLICIT=1
