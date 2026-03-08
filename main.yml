@@ -22,7 +22,7 @@
     - role: theming
       tags:
         - theming
-    - role: hyprland
+    - role: desktop
       tags:
-        - hyprland
+        - desktop
 

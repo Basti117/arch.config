@@ -1,0 +1,55 @@
+- name: Create systemd override directory for getty@tty1
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/system/getty@tty1.service.d
+    state: directory
+    mode: "0755"
+
+- name: Enable auto-login on tty1
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/getty@tty1.service.d/override.conf
+    mode: "0644"
+    content: |
+      [Service]
+      ExecStart=
+      ExecStart=-/usr/bin/agetty --autologin {{ ansible_facts.user_id }} --noclear %I $TERM
+
+- name: Check if binary exists
+  ansible.builtin.stat:
+    path: /usr/bin/awww
+  register: awww
+
+- name: Build dependency
+  block:
+    - name: Create temporary directory for git checkouts
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: git
+      register: git_tempdir
+
+    - name: Clone awww project from source
+      ansible.builtin.git:
+        repo: https://codeberg.org/LGFae/awww.git
+        dest: "{{ git_tempdir.path }}"
+
+    - name: Build awww from source
+      ansible.builtin.command:
+        cmd: cargo build --release
+      args:
+        chdir: "{{ git_tempdir.path }}"
+
+    - name: Copy binaries to /usr/bin
+      become: true
+      ansible.builtin.copy:
+        src: "{{ git_tempdir.path }}/target/release/{{ binary }}"
+        dest: "/usr/bin/{{ binary }}"
+        mode: "0755"
+        owner: root
+        group: root
+      loop:
+        - awww
+        - awww-daemon
+      loop_control:
+        loop_var: binary
+  when: not awww.stat.exists

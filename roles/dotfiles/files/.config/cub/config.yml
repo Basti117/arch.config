@@ -1,0 +1,62 @@
+modules:
+  - name: hypr/themes
+    components:
+      - name: colors
+        target:
+          path: ~/.config/hypr/colors.conf
+          type: link
+        hooks:
+          - stage: post
+            cmd: hyprctl reload
+      - name: wallpapers
+        target:
+          path: ~/.config/hypr/wallpaper.png
+          type: link
+        hooks:
+          - stage: post
+            cmd: awww img --transition-type wipe --transition-angle 30 --transition-step 90 --transition-duration 1 {{ component.target.path }}
+  - name: kitty/themes
+    components:
+      - name: colors
+        target:
+          path: ~/.config/kitty/colors.conf
+          type: link
+    hooks:
+      - stage: post
+        cmd: pkill -SIGUSR1 kitty
+  - name: waybar/themes
+    components:
+      - name: colors
+        target:
+          path: ~/.config/waybar/colors.css
+          type: link
+    hooks:
+      - stage: post
+        cmd: pkill waybar
+      - stage: post
+        cmd: waybar
+        detach: true
+  - name: nvim/themes
+    components:
+      - name: colors
+        target:
+          path: ~/.config/nvim/lua/themes/active.lua
+          type: link
+    hooks:
+      - stage: post
+        cmd: ./scripts/reload_nvim.sh {{ profile }}
+  - name: starship/themes
+    components:
+      - name: colors
+        target:
+          path: ~/.config/starship.toml
+          type: link
+    hooks:
+      - stage: post
+        cmd: ./scripts/reload_starship.sh
+  - name: rofi/themes
+    components:
+      - name: colors
+        target:
+          path: ~/.config/rofi/colors.rasi
+          type: link
