@@ -30,6 +30,8 @@ window {
 
     /* properties for all widgets */
     enabled:                     true;
+    border:                      2px;
+    border-color:                @bg0;
     border-radius:               20px;
     cursor:                      "default";
     background-color:            @bg0;
@@ -94,7 +96,7 @@ listview {
     scrollbar:                   false;
     layout:                      vertical;
     reverse:                     false;
-    fixed-height:                true;
+    fixed-height:                false;
     fixed-columns:               true;
     
     spacing:                     10px;
