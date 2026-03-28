@@ -10,7 +10,7 @@ for socket in /tmp/kitty-commands*; do
 
         for id in $ids; do
             echo "Clearing idle window $id on $socket"
-            kitty @ --to "unix:$socket" send-text --match "id:$id" "clear\r"
+            kitty @ --to "unix:$socket" send-text --match "id:$id" " clear\r"
         done
     fi
 done
