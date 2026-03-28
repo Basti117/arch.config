@@ -4,7 +4,7 @@
     "layer": "top",
     "position": "top",
     "name": "main",
-    "margin-top": 5,
+    "margin-top": 12,
     "modules-center": [
       "clock",
       "hyprland/workspaces",
