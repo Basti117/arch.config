@@ -37,6 +37,7 @@ packages:
   - name: hypridle
   - name: hyprlock
   - name: hyprpaper
+  - name: hyprsunset
   - name: imagemagick
   - name: uwsm
   - name: gnome-themes-extra
