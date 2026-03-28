@@ -15,62 +15,63 @@ dual_boot:
     bootloader:
       file: /boot/EFI/Microsoft/Boot/bootmgfw.efi
 packages:
-  - name: blueman
+  # Basic Devtools and CLIs
+  - name: git
   - name: jq
-  - name: networkmanager
-  - name: networkmanager-dmenu
-  - name: pacman-contrib
+  - name: less
+  - name: neovim
+  - name: npm
+  - name: openssh
+  - name: ripgrep
+  - name: rsync
+  - name: rust
+  - name: tree
   - name: unzip
-  - name: dkms
+
+  # Libraries and Drivers
+  - name: egl-wayland
+  - name: libva-nvidia-driver
   - name: linux-headers
   - name: nvidia-open-dkms
   - name: nvidia-utils
   # - name: lib32-nvidia-utils
   - name: nvidia-settings
-  - name: libva-nvidia-driver
-  - name: openssh
-  - name: egl-wayland
+  - name: pacman-contrib
 
-  - name: libnewt
+  # Basic Apps
+  - name: blueman
+  - name: cliphist
+  - name: dkms
+  - name: gnome-themes-extra
+  - name: grim
   - name: hyprland
   - name: hyprcursor
   - name: hypridle
   - name: hyprlock
   - name: hyprpaper
   - name: hyprsunset
-  - name: imagemagick
-  - name: uwsm
-  - name: gnome-themes-extra
+  - name: kitty
+  - name: libnewt
+  - name: networkmanager
+  - name: networkmanager-dmenu
   - name: pipewire
+  - name: rofi
+  - name: slurp
+  - name: starship
+  - name: swaync
+  - name: uwsm
+  - name: waybar
   - name: wireplumber
+  - name: wl-clipboard
   - name: xdg-desktop-portal-hyprland
 
-  - name: rust
+  # Desktop Apps
   - name: discord
-  - name: fastfetch
   - name: firefox
-  - name: git
   - name: imv
-  - name: kitty
-  - name: less
   - name: nodejs
-  - name: neovim
-  - name: npm
   - name: pavucontrol
-    # - name: plymouth
-  - name: ripgrep
-  - name: rofi
-  - name: rsync
   - name: spotify-launcher
-  - name: starship
-  - name: tree
-  - name: waybar
-
-  # Screenshots and copy history
-  - name: grim
-  - name: slurp
-  - name: wl-clipboard
-  - name: cliphist
 services:
   - name: NetworkManager.service
     scope: system
