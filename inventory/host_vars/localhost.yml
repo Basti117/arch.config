@@ -65,7 +65,12 @@ packages:
   - name: starship
   - name: tree
   - name: waybar
+
+  # Screenshots and copy history
+  - name: grim
+  - name: slurp
   - name: wl-clipboard
+  - name: cliphist
 services:
   - name: NetworkManager.service
     scope: system
