@@ -36,6 +36,16 @@ modules:
       - stage: post
         cmd: waybar
         detach: true
+  - name: swaync/themes
+    components:
+      - name: colors
+        target:
+          path: ~/.config/swaync/colors.css
+          type: link
+    hooks:
+      - stage: post
+        cmd: pkill -9 swaync && sleep 1 && swaync
+        detach: true
   - name: nvim/themes
     components:
       - name: colors

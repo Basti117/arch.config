@@ -17,6 +17,8 @@ dual_boot:
 packages:
   # Basic Devtools and CLIs
   - name: git
+  # For swaync to display album covers
+  - name: gvfs
   - name: jq
   - name: less
   - name: neovim
