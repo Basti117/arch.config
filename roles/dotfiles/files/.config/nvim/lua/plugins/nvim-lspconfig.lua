@@ -8,6 +8,7 @@ return {
 		"saghen/blink.cmp",
 	},
 	config = function()
+		require("mason").setup()
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -16,8 +17,7 @@ return {
 					vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
 
-				map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
-				map("gra", vim.lsp.buf.code_action, "[G]oto Code [A]ction", { "n", "x" })
+				-- Telescope Overrides für Keymaps
 				map("grr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 				map("gri", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
 				map("grd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
@@ -26,26 +26,10 @@ return {
 				map("gW", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Open Workspace Symbols")
 				map("grt", require("telescope.builtin").lsp_type_definitions, "[G]oto [T]ype Definition")
 
-				-- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-				---@param client vim.lsp.Client
-				---@param method vim.lsp.protocol.Method
-				---@param bufnr? integer some lsp support methods only in specific files
-				---@return boolean
-				local function client_supports_method(client, method, bufnr)
-					if vim.fn.has("nvim-0.11") == 1 then
-						return client:supports_method(method, bufnr)
-					else
-						return client.supports_method(method, { bufnr = bufnr })
-					end
-				end
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
 				if
 					client
-					and client_supports_method(
-						client,
-						vim.lsp.protocol.Methods.textDocument_documentHighlight,
-						event.buf
-					)
+					and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
 				then
 					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -68,13 +52,18 @@ return {
 						end,
 					})
 				end
-				if
-					client
-					and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf)
-				then
+
+				if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
+				end
+
+				if client and client.server_capabilities.semanticTokensProvider then
+					client.server_capabilities.semanticTokensProvider = {
+						full = true,
+						legend = client.server_capabilities.semanticTokensProvider.legend,
+					}
 				end
 			end,
 		})
@@ -104,39 +93,36 @@ return {
 				end,
 			},
 		})
-		local capabilities = require("blink.cmp").get_lsp_capabilities()
-		local servers = {
-			gopls = {},
-			zls = {
-				cmd = { "/home/basdi/.zvm/bin/zls" },
-				filetypes = { "zig" },
-				settings = {
-					zls = {
-						semantic_tokens = "partial",
-						zig_exe_path = "/home/basdi/.zvm/bin/zig",
-						zig_lib_path = "/home/basdi/.zvm/master/lib",
-					},
-				},
-			},
-			lua_ls = {
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-					},
-				},
-			},
-		}
-		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"lua_ls",
-			"stylua", -- Used to format Lua code
-			"ruff",
-			"pyright",
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		vim.lsp.config("gopls", {
+			capabilities = capabilities,
+			filetypes = { "go" },
 		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+		vim.lsp.config("zls", {
+			capabilities = capabilities,
+			cmd = { "/home/basdi/.zvm/bin/zls" },
+			filetypes = { "zig" },
+			settings = {
+				zls = {
+					semantic_tokens = "partial",
+					zig_exe_path = "/home/basdi/.zvm/bin/zig",
+					zig_lib_path = "/home/basdi/.zvm/master/lib",
+				},
+			},
+		})
+		vim.lsp.config("lua_ls", {
+			capabilities = capabilities,
+			settings = {
+				Lua = {
+					completion = {
+						callSnippet = "Replace",
+					},
+				},
+			},
+		})
+		vim.lsp.config("stylua", { capabilities = capabilities })
 		vim.lsp.config("pyright", {
+			capabilities = capabilities,
 			filetypes = { "python" },
 			settings = {
 				python = {
@@ -156,13 +142,27 @@ return {
 			},
 		})
 		vim.lsp.config("ruff", {
+			capabilities = capabilities,
 			filetypes = { "python" },
 			init_options = {
 				settings = {
 					args = {},
 				},
 			},
+			on_init = function(client)
+				if client.offset_encoding then
+					client.offset_encoding = "utf-16"
+				end
+			end,
 		})
+		local ensure_installed = {
+			"gopls",
+			"lua_ls",
+			"stylua", -- Used to format Lua code
+			"ruff",
+			"pyright",
+		}
+		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
 			ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
@@ -170,12 +170,7 @@ return {
 			automatic_enable = true,
 			handlers = {
 				function(server_name)
-					local server = servers[server_name] or {}
-					-- This handles overriding only values explicitly passed
-					-- by the server configuration above. Useful when disabling
-					-- certain features of an LSP (for example, turning off formatting for ts_ls)
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					vim.lsp.config[server_name].setup(server)
+					vim.lsp.enable(server_name)
 				end,
 			},
 		})

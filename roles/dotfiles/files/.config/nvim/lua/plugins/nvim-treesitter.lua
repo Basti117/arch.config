@@ -1,4 +1,4 @@
-return { -- Highlight, edit, and navigate code
+return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
 	opts = {
@@ -12,6 +12,7 @@ return { -- Highlight, edit, and navigate code
 			"markdown",
 			"markdown_inline",
 			"ninja",
+			"python",
 			"query",
 			"rst",
 			"vim",
